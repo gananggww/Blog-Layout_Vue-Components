@@ -32,15 +32,15 @@
 
 #### server:
 
-1. cd server/
-2. npm install
-3. nodemon app.js
+1. `cd server/`
+2. `npm install`
+3. `nodemon app.js`
 
 #### client:
 
-1. cd client/
-2. npm install/
-3. npm run dev
+1. `cd client/`
+2. `npm install/`
+3. `npm run dev`
 
 ***
 
@@ -60,4 +60,4 @@
 
 1. Client in **Google Cloud Storage**
 2. Server in **Compute Engine**
-3. Open http://blog.ganang.xyz (updated ASAP)
+3. Open ex http://blog.ganang.xyz (updated ASAP)
