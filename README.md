@@ -1,9 +1,9 @@
 # Blog-Layout_Vue-Components
 
-##Blog v0.1
+## Blog v0.1
 
+### Feature
 
-###Feature
 1. Login facebook
 2. Management admin articles (create, delete, read)
 3. Everyone can to be admin  (public blog)
@@ -11,7 +11,10 @@
 5. Everyone can read this blog page
 6. Filter article (admin and public)
 
-###Tool Usage
+***
+
+### Tool Usage
+
 1. Facebook Login using fb npm
 4. Backend Framework using **Node.js**
 8. TDD (Test Driven Development) API Using **Mocha** and **Chai** (updated ASAP)
@@ -23,29 +26,38 @@
 8. Facebook login front-end using vue-facebook-signin-button npm
 9. UI Framework using **Semantic UI**
 
-###Usage
-####server:
+***
+
+### Usage
+
+#### server:
+
 1. cd server/
 2. npm install
 3. nodemon app.js
 
-####client:
+#### client:
+
 1. cd client/
 2. npm install/
 3. npm run dev
 
-###Server Endpoint
-Endpoint | Method | Access
------------- | -------------|---------------
-http://localhost:3000/self | GET | Admin
-http://localhost:3000/ | GET | Public
-http://localhost:3000/:id | GET | Public
-http://localhost:3000/ | POST | Admin
-http://localhost:3000/all | DELETE | Admin
+***
 
+### Server Endpoint
 
+|Endpoint     | Method | Access|
+|-------------|:-------------:|----------------|
+|`/self`      | GET           | Admin          |
+|`/`          | GET           | Public         |
+|`/:id`       | GET           | Public         |
+|`/`          | POST          | Admin          |
+|`/all`       | DELETE        | Admin          |
 
-###Deployment Google Cloud Platform
+***
+
+### Deployment Google Cloud Platform
+
 1. Client in **Google Cloud Storage**
 2. Server in **Compute Engine**
 3. Open http://blog.ganang.xyz (updated ASAP)
