@@ -14,7 +14,45 @@ const state = {
   dataUser: null,
   articles: null,
   articleID: null,
-  articleIns: null
+  articleIns: null,
+  articleSelf: null
+}
+
+const getters = {
+  filterSelfArticles: (state, getters) => (model) => {
+    console.log('ini getters', getters)
+    let articlesArray = state.articleSelf
+    let searchString = model
+
+    if (!searchString) {
+      return articlesArray
+    }
+    searchString = searchString.trim().toLowerCase()
+    articlesArray = articlesArray.filter(function (item) {
+      if (item.title.toLowerCase().indexOf(searchString) !== -1) {
+        return item
+      }
+    })
+      // Return an array with the filtered data.
+    return articlesArray
+  },
+  filterArticles: (state, getters) => (model) => {
+    console.log('ini getters', getters)
+    let articlesArray = state.articles
+    let searchString = model
+
+    if (!searchString) {
+      return articlesArray
+    }
+    searchString = searchString.trim().toLowerCase()
+    articlesArray = articlesArray.filter(function (item) {
+      if (item.title.toLowerCase().indexOf(searchString) !== -1) {
+        return item
+      }
+    })
+      // Return an array with the filtered data.
+    return articlesArray
+  }
 }
 
 const mutations = {
@@ -31,6 +69,12 @@ const mutations = {
   },
   setinsArticle (state, payload) {
     state.articleIns = payload
+  },
+  setSelfArticles (state, payload) {
+    state.articleSelf = payload
+  },
+  setDelSelfArticle (state, payload) {
+    state.articleSelf.splice(payload.idx, 1)
   }
 }
 
@@ -78,11 +122,35 @@ const actions = {
     .then(response => {
       context.commit('setinsArticle', response.data)
     })
+  },
+  getSelfArticles (context, payload) {
+    http.get('/articles/self', {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      context.commit('setSelfArticles', response.data)
+    })
+  },
+  delSelfArticle (context, payload) {
+    http.delete(`/articles/${payload.id}`, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      console.log('ini response delete : ', response.data)
+      console.log('ini isi payloadid : ', payload.id)
+      console.log('ini isi payloadidx : ', payload.idx)
+      context.commit('setDelSelfArticle', payload)
+    })
   }
 }
 
 const store = new vuex.Store({
   state,
+  getters,
   mutations,
   actions
 })

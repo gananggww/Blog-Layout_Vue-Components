@@ -5,7 +5,7 @@
       <div class="ui one column grid">
         <div class="column">
           <div class="ui segment">
-            <Hot></Hot>
+
           </div>
         </div>
         <div class="column">

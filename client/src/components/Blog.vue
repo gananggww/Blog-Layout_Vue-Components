@@ -43,45 +43,27 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      searchString: '',
-      article: []
+      searchString: ''
     }
   },
   methods: {
-    ...mapState([
-      'articles'
-    ]),
     gotolink (id) {
       this.$router.push(`/${id}`)
     }
   },
   computed: {
-    get () {
-      return this.articles()
-    },
+    ...mapGetters([
+      'filterArticles'
+    ]),
     filteredArticles () {
-      let articlesArray = this.get
-      let searchString = this.searchString
-
-      if (!searchString) {
-        return articlesArray
-      }
-      searchString = searchString.trim().toLowerCase()
-      articlesArray = articlesArray.filter(function (item) {
-        if (item.title.toLowerCase().indexOf(searchString) !== -1) {
-          return item
-        }
-      })
-        // Return an array with the filtered data.
-      return articlesArray
+      return this.filterArticles(this.searchString)
     }
   }
 }

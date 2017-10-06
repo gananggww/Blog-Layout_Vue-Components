@@ -25,14 +25,19 @@
       Go To Your Blog
     </button>
     <Adminposted :resultProps = "result" v-if="result !== null"></Adminposted>
+    <div class="ui segment">
+      <Blogself/>
+    </div>
   </div>
 </template>
 
 <script>
+import Blogself from '@/components/Blogself'
 import Adminposted from '@/components/Adminposted'
 import { mapActions, mapState } from 'vuex'
 export default {
   components: {
+    Blogself,
     Adminposted
   },
   data () {
@@ -47,7 +52,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'insArticle'
+      'insArticle',
+      'getSelfArticles'
     ]),
     ...mapState([
       'articleIns'
@@ -60,6 +66,9 @@ export default {
     result () {
       return this.articleIns()
     }
+  },
+  mounted () {
+    this.getSelfArticles()
   }
 }
 </script>

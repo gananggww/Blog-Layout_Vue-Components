@@ -23,6 +23,19 @@ const allById = (req, res) => {
   })
 }
 
+
+const allByIdPribadi = (req, res) => {
+  db.find({
+    author: req.headers.auth.id
+  }).populate('author')
+  .then(response => {
+    res.send(response)
+  })
+  .catch(err => {
+    res.send(err)
+  })
+}
+
 const insert = (req, res) => {
   db.create({
     title: req.body.title,
@@ -54,6 +67,7 @@ const lost = (req, res) => {
 
 module.exports = {
   allById,
+  allByIdPribadi,
   insert,
   all,
   lost

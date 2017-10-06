@@ -16,6 +16,7 @@ const midjwt = (req, res, next) => {
   }
 }
 
+router.get('/self', midjwt, articles.allByIdPribadi)
 router.get('/:id', articles.allById)
 router.get('/', articles.all)
 router.delete('/:id', midjwt, articles.lost)

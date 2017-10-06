@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import House from '@/components/House'
 import Login from '@/components/Login'
 import Admin from '@/components/Admin'
 import Blog from '@/components/Blog'
@@ -16,11 +16,14 @@ export default new Router({
       component: Login
     }, {
       path: '/admin',
-      component: Admin
+      component: Admin,
+      children: [{
+        path: '',
+        component: Blog
+      }]
     }, {
       path: '/',
-      name: 'Home',
-      component: Home,
+      component: House,
       children: [{
         path: '',
         component: Blog
