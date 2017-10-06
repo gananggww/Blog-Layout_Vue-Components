@@ -6,7 +6,7 @@
       </div>
       <div class="eight wide column">
           <div class="ui fluid icon input">
-            <input type="text" v-model="searchString" placeholder="Search a very wide input...">
+            <input type="text" v-model="searchString" placeholder="Search articles title.">
             <i class="search icon"></i>
           </div>
       </div>
@@ -25,18 +25,18 @@
     <div class="ui segment divided items">
       <div class="item" v-for="all in filteredArticles">
         <div class="ui small image">
-          <img :src="all.img">
+          <img :src="all.picture">
         </div>
         <div class="middle aligned content">
           <div class="header">
-            {{all.judul}}
+            {{all.title}}
           </div>
           <div class="description">
-            <p>{{all.content}}</p>
+            <p>{{all.short_desc}}</p>
           </div>
           <div class="extra">
-            <div class="ui right floated mini button">
-              Action
+            <div @click="gotolink(all._id)" class="ui right floated mini button">
+              Read more
             </div>
           </div>
         </div>
@@ -47,43 +47,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
       searchString: '',
-      article: [{
-        judul: 'Cabut gigi geratis',
-        img: 'https://semantic-ui.com/images/wireframe/image.png',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        tanggal: '25-09-2017',
-        author: {
-          name: 'Arlina P.',
-          picture: 'https://semantic-ui.com/images/wireframe/image.png'
-        }
-      }, {
-        judul: 'Posyandu Mingguan',
-        img: 'https://semantic-ui.com/images/wireframe/image.png',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        tanggal: '25-09-2017',
-        author: {
-          name: 'Arlina P.',
-          picture: 'https://semantic-ui.com/images/wireframe/image.png'
-        }
-      }, {
-        judul: 'Imunisasi Balita',
-        img: 'https://semantic-ui.com/images/wireframe/image.png',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        tanggal: '25-09-2017',
-        author: {
-          name: 'Arlina P.',
-          picture: 'https://semantic-ui.com/images/wireframe/image.png'
-        }
-      }]
+      article: []
+    }
+  },
+  methods: {
+    ...mapState([
+      'articles'
+    ]),
+    gotolink (id) {
+      this.$router.push(`/${id}`)
     }
   },
   computed: {
-    filteredArticles: function () {
-      let articlesArray = this.article
+    get () {
+      return this.articles()
+    },
+    filteredArticles () {
+      let articlesArray = this.get
       let searchString = this.searchString
 
       if (!searchString) {
@@ -91,7 +76,7 @@ export default {
       }
       searchString = searchString.trim().toLowerCase()
       articlesArray = articlesArray.filter(function (item) {
-        if (item.judul.toLowerCase().indexOf(searchString) !== -1) {
+        if (item.title.toLowerCase().indexOf(searchString) !== -1) {
           return item
         }
       })

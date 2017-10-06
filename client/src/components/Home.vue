@@ -11,7 +11,7 @@
         <div class="column">
           <div class="ui stackable two column grid">
             <div class="four wide column">
-              <Sidebarx></Sidebarx>
+              <Sidebarx :articleProps = "allData"></Sidebarx>
             </div>
             <div class="twelve wide column">
               <div class="ui one column grid">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="column">
                   <div class="ui segment">
-                    <Blog></Blog>
+                    <router-view></router-view>
                   </div>
                 </div>
               </div>
@@ -38,6 +38,7 @@
 import Menus from '@/components/Menus'
 import Sidebarx from '@/components/Sidebarx'
 import Blog from '@/components/Blog'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     Menus,
@@ -46,12 +47,27 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+
+    }
+  },
+  methods: {
+    ...mapActions([
+      'getArticles'
+    ]),
+    ...mapState([
+      'articles'
+    ])
+  },
+  mounted () {
+    this.getArticles()
+  },
+  computed: {
+    allData () {
+      return this.articles()
     }
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {

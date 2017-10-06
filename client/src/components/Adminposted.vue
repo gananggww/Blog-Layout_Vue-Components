@@ -3,13 +3,22 @@
     <h1>{{resultProps.title}}</h1>
     <img class="ui image" :src="resultProps.picture" alt="">
     <p>{{resultProps.desc}}</p>
-    <p>{{resultProps.author}}</p>
+    <div class="ui label">
+      <img class="ui right spaced avatar image" :src="pic">
+      {{user}}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['resultProps']
+  props: ['resultProps'],
+  data () {
+    return {
+      user: localStorage.getItem('nameUser'),
+      pic: localStorage.getItem('imgUser')
+    }
+  }
 }
 </script>
 

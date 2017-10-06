@@ -5,15 +5,20 @@ import App from './App'
 import router from './router'
 import FBSignInButton from 'vue-facebook-signin-button'
 import VueQuillEditor from 'vue-quill-editor'
+import Vuex from 'vuex'
+import store from './vuex/store'
 
 Vue.use(VueQuillEditor)
 Vue.use(FBSignInButton)
+Vue.use(Vuex)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

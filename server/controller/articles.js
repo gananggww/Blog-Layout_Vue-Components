@@ -1,8 +1,20 @@
 const db = require('../model/articles')
 const FB = require('fb')
 
-const allById = (req, res) => {
+const all = (req, res) => {
   db.find().populate('author')
+  .then(response => {
+    res.send(response)
+  })
+  .catch(err => {
+    res.send(err)
+  })
+}
+
+const allById = (req, res) => {
+  db.find({
+    _id: req.params.id
+  }).populate('author')
   .then(response => {
     res.send(response)
   })
@@ -41,7 +53,8 @@ const lost = (req, res) => {
 }
 
 module.exports = {
-  insert,
   allById,
+  insert,
+  all,
   lost
 }

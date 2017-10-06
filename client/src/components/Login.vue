@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -20,23 +21,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'getUserFB'
+    ]),
     onSignInSuccess (response) {
       console.log('ini response FACEBOOK : ', response)
       if (response.status === 'connected') {
         localStorage.setItem('fbaccesstoken', response.authResponse.accessToken)
-        axios.get(`http://localhost:3000/users/login`, {
-          headers: {
-            fbaccesstoken: localStorage.getItem('fbaccesstoken')
-          }
-        })
-        .then(loug => {
-          console.log('ini response dari API Users', loug)
-          localStorage.setItem('token', loug.data.token)
-          this.$router.push('/admin')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        this.getUserFB()
       } else {
         console.log('salah')
       }

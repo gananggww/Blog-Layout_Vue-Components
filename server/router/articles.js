@@ -16,8 +16,8 @@ const midjwt = (req, res, next) => {
   }
 }
 
-
-router.get('/', articles.allById)
+router.get('/:id', articles.allById)
+router.get('/', articles.all)
 router.delete('/:id', midjwt, articles.lost)
 // router.put('/:id', midjwt, articles.update)
 router.post('/', midjwt, articles.insert)

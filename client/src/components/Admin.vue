@@ -17,15 +17,20 @@
         <label>Konten</label>
         <textarea v-model="insert.konten"></textarea>
       </div>
-      <button @click="insData()" class="ui fluid blue button" type="button" name="button">Posting gan!</button>
+      <button @click="insArticle(insert)" class="ui fluid blue button" type="button" name="button">Posting gan!</button>
+      <br>
     </div>
+    <button @click="gotoBlog()" class="ui right labeled green fluid icon button">
+      <i class="right arrow icon"></i>
+      Go To Your Blog
+    </button>
     <Adminposted :resultProps = "result" v-if="result !== null"></Adminposted>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import Adminposted from '@/components/Adminposted'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     Adminposted
@@ -37,26 +42,23 @@ export default {
         gambar: '',
         mini_konten: '',
         konten: ''
-      },
-      result: null
+      }
     }
   },
   methods: {
-    insData () {
-      var self = this
-      axios.post('http://localhost:3000/articles', {
-        title: self.insert.judul,
-        short_desc: self.insert.mini_konten,
-        desc: self.insert.konten,
-        picture: self.insert.gambar
-      }, {
-        headers: {
-          token: localStorage.getItem('token')
-        }
-      })
-      .then(response => {
-        this.result = response.data
-      })
+    ...mapActions([
+      'insArticle'
+    ]),
+    ...mapState([
+      'articleIns'
+    ]),
+    gotoBlog () {
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    result () {
+      return this.articleIns()
     }
   }
 }
